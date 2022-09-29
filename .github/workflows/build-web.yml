@@ -6,21 +6,6 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  sonarcloud:
-    name: SonarCloud
-    runs-on: ubuntu-latest
-    environment: DEV
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-          projectBaseDir: src/web
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: a7f7aa6e53547089f63703cf6de38fa4bb7c8f44
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -39,6 +24,8 @@ jobs:
           cache-dependency-path: src/web/package-lock.json
       - run: pwd
       - run: cd src/web
+      - run: pwd
+      - run: ls -l
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
