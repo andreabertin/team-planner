@@ -1,4 +1,4 @@
-name: Build Web
+name: Build Graph
 on:
   push:
     branches:
@@ -21,10 +21,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: src/web/package-lock.json
+          cache-dependency-path: src/graph/package-lock.json
       - run: npm ci
-        working-directory: src/web
+        working-directory: src/graph
       - run: npm run build --if-present
-        working-directory: src/web
+        working-directory: src/graph
       - run: npm test
-        working-directory: src/web
+        working-directory: src/graph
